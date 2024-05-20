@@ -15,4 +15,10 @@ class Teacher extends Model
         "phone",
         "matery",
     ];
+
+    public function photos()
+    {
+        return $this->morphMany(Photo::class, 'imageable');
+    }
+
 }

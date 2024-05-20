@@ -28,12 +28,12 @@ class StudentFactory extends Factory
         ];
 
         return [
-            'name' => $this->faker->name,
-            'course' => $this->faker->randomElement($nomeCursos),
-            'email' => $this->faker->safeEmail,
-            'phone' => $this->faker->phoneNumber,
+            'name'       => $this->faker->name,
+            'course'     => $this->faker->randomElement($nomeCursos),
+            'email'      => $this->faker->safeEmail,
+            'phone'      => $this->faker->phoneNumber,
             'created_at' => now(),
-            'updated_at'=> now(),
+            'updated_at' => now(),
         ];
     }
 }

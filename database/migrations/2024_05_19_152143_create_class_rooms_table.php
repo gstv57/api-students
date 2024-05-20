@@ -1,21 +1,24 @@
 <?php
 
+use App\Models\Teacher;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class () extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('students', function (Blueprint $table) {
+        Schema::create('class_rooms', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('course');
-            $table->string('email')->unique();
-            $table->string('phone');
+            $table->foreignIdFor(Teacher::class)->constrained('teachers')->onDelete('cascade');
+            $table->integer('student_capacity');
+            $table->string('description')->nullable();
+            $table->string('status');
             $table->timestamps();
         });
     }
@@ -25,6 +28,6 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('students');
+        Schema::dropIfExists('class_rooms');
     }
 };

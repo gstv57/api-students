@@ -17,14 +17,14 @@ class TeacherFactory extends Factory
     public function definition(): array
     {
         $matery = [
-            'Mathematics', 'Physics', 'Chemistry', 'Biology', 'Computer Science'
+            'Mathematics', 'Physics', 'Chemistry', 'Biology', 'Computer Science',
         ];
 
         return [
-            'name' => $this->faker->name,
+            'name'   => $this->faker->name,
             'matery' => $this->faker->randomElement($matery),
-            'email' => $this->faker->unique()->safeEmail,
-            'phone' => $this->faker->phoneNumber,
+            'email'  => $this->faker->unique()->safeEmail,
+            'phone'  => $this->faker->phoneNumber,
         ];
     }
 }

@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Student;
-use App\Models\Teacher;
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Enum\API\V1\ClassRoomStatusEnum;
+use App\Models\{ClassRoom, Student, Teacher};
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,13 +14,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $faker = \Faker\Factory::create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
-        Student::factory(50)->create();
-        Teacher::factory(50)->create();
+        for ($i = 0; $i < 10; $i++) {
+            $student = Student::factory()->create();
+
+            $student->photos()->create([
+                'url' => $faker->imageUrl(),
+            ]);
+            $teacher = Teacher::factory()->create();
+
+            $teacher->photos()->create([
+                'url' => $faker->imageUrl(),
+            ]);
+
+            // for each teacher, create a class room
+            ClassRoom::create([
+                'name' => $faker->numberBetween(1, 10),
+                'teacher_id' => $teacher->id,
+                'student_capacity' => $faker->numberBetween(10, 50),
+                'description' => $faker->sentence,
+                'status' => ClassRoomStatusEnum::ACTIVE,
+            ]);
+        }
     }
 }
