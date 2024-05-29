@@ -18,6 +18,7 @@ class ClassRoomController extends Controller
             $classRoom = ClassRoom::all();
             $classRoom->load('teacher');
             return $classRoom;
+
         } catch (Exception) {
             return response()->json([
                 'status' => 500,
@@ -72,6 +73,19 @@ class ClassRoomController extends Controller
 
     public function edit($id)
     {
+        try{
+            $classRoom = ClassRoom::findOrFail($id);
+            $classRoom->load('teacher');
+            return response()->json([
+                'status' => 200,
+                'data' => $classRoom,
+            ]);
+        }catch (Exception $e){
+            return response()->json([
+                'status' => 404,
+                'message' => 'Class room not found',
+            ]);
+        }
     }
 
     public function update(Request $request, string $id)
